@@ -1,0 +1,136 @@
+
+<div class="container">
+  <div class="row mt-5 mb-4">
+    <div class="col-md-12">
+      <h3 class="text-center">Student Data Save by using modal popUp instead of using Form </h3>
+      <p class="text-center">Apply CRUD with local storage</p>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="card">
+          <div class="card-header bg-warning d-inline-flex ">
+            <div class="col-md-11">
+              <h3>Student Details</h3>
+            </div>
+            <button class="btn btn-sm btn-primary" style="float: right;" (click)="onAddStudent()">Add Student</button>
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th><input type="checkbox"  class="form-ckeck" [(ngModel)]="isSelectAll" (ngModelChange)="onCheckAll()"></th>
+                  <th>Full Name</th>
+                  <th>Mobile</th>
+                  <th>Email</th>
+                  <th>Address</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- <tr>
+                  <td>
+                    <input type="checkbox" name="" id="">
+                  </td>
+                  <td>Varad Kumbhar</td>
+                  <td>8378915080</td>
+                  <td>varad0024@gmail.com</td>
+                  <td>Tasgaon, Maharasgtra, India </td>
+                  <td>
+                    <button class="btn btn-sm btn-secondary mx-3" (click)="onEditStudent(userForm)">Edit</button>
+                    <button class="btn btn-sm btn-danger mx-3" (click)="onDeleteStudent(userForm)">Delete</button>
+                  </td>
+                </tr> -->
+                <tr *ngFor="let item of studentArray">
+                  <td>
+                    <input type="checkbox" [(ngModel)]="item.isChecked">
+                  </td>
+                  <td>{{item.fullName}}</td>
+                  <td>{{item.mobile}}</td>
+                  <td>{{item.email}}</td>
+                  <td>{{item.address}}</td>
+                  <td>
+                    <button class="btn btn-sm btn-secondary mx-3" (click)="onEditStudent(item)">Edit</button>
+                    <button class="btn btn-sm btn-danger mx-3" (click)="onDeleteStudent(item.studentId)">Delete</button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+
+          </div>
+          <div class="card-footer">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- the Modal pop-up -->
+  <div class="modal" id="studentModel">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!--  modal-header -->
+        <div class="modal-header bg-success text-white">
+          <h6 class="modal-title text-white">
+            Add Student Details
+          </h6>
+          <button type="button" class="btn-close btn-sm text-white" (click)="onCloseModal()"></button>
+        </div>
+        <form #userForm="ngForm">
+          <!--  Modal-body  -->
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-8">
+                <label for="for-label">Full Name</label>
+                <input type="text" name="name" class="form-control" placeholder="Full Name"
+                  [(ngModel)]="student.fullName">
+              </div>
+              <div class="row">
+                <div class="col-md-5">
+                  <label for="for-label">Mobile</label>
+                  <input type="text" name="phone" class="form-control" placeholder="Mobile Number"
+                    [(ngModel)]="student.mobile">
+                </div>
+                <div class="col-md-5">
+                  <label for="">Email</label>
+                  <input type="email" name="eMail" id="" [(ngModel)]="student.email" class="form-control">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label for="">Address</label>
+                  <textarea class="form-control" name="address" id=""  rows="3" [(ngModel)]="student.address"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="row">
+              <div class="col-md-6">
+                <button class="btn btn-secondary btn-sm">Cancle</button>
+              </div>
+              <div class="col-md-6">
+                <button class="btn btn-success btn-sm" (click)="saveStudent(userForm)" *ngIf="student.studentId==0">Save</button>
+                <button class="btn btn-warning btn-sm" (click)="updateStudent()" *ngIf="student.studentId!==0">Update</button>
+              </div>
+
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+<div>
+  <router-outlet></router-outlet>
+</div>
